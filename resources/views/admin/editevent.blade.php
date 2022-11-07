@@ -27,7 +27,7 @@
                 </div>
                 <div class="mb-3">
                    <label for="image" class="form-label">Old Event image</label> 
-                   <img class="img-thumbnail" src="{{asset('storage/images/event_pic/'.$event->event_pic)}}"/>
+                   <img class="img-thumbnail" src="{{asset('storage/event_pic/'.$event->event_pic)}}"/>
                 </div>
                 <div class="mb-3">
                     <label for="title" class="form-label">Picture</label>

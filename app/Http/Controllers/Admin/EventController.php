@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Traits\Uploadable;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -40,20 +41,35 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request->all();
         $request->validate([
             'title' => ['required', 'string'],
             'edate' => ['required', 'string'],
             'epic' => ['required', 'image', 'mimes:png,jpg,jpeg,gif,svg', 'max:2048'],
             'edetail' => ['required', 'string'],
+            'post_type' => ['required', 'string'],
         ]);
         $filepath = $this->UserImageUpload($request->file('epic'),'event_pic');
-        Event::create([
-            'admin_id' => auth()->user()->id,
-            'title' => $request->title,
-            'event_date' => $request->edate,
-            'event_pic' => $filepath,
-            'event_detail' => $request->edetail,
-        ]);
+        if($request->post_type === 'SAVE'){
+            Event::create([
+                'admin_id' => auth()->user()->id,
+                'title' => $request->title,
+                'event_date' => $request->edate,
+                'event_pic' => $filepath,
+                'event_detail' => $request->edetail,
+            ]);
+        }elseif($request->post_type === 'SAVE/PUBLISH')
+        {
+            Event::create([
+                'admin_id' => auth()->user()->id,
+                'title' => $request->title,
+                'event_date' => $request->edate,
+                'event_pic' => $filepath,
+                'event_detail' => $request->edetail,
+                'published_at' => Carbon::now(),
+            ]);
+        }
+      
         return redirect('event')->with('success', 'Event Created');
     }
 
@@ -63,9 +79,20 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Event $event)
     {
-        //
+        if ($event->published_at === null) {
+            $updatepost = $event->update([
+                'published_at' => Carbon::now(),
+            ]);
+            if (!$updatepost) return back()->with('fail', 'event could not be published');
+            return back()->with('success', 'event has been published');
+        }
+        $updatepost = $event->update([
+            'published_at' => null,
+        ]);
+        if (!$updatepost) return back()->with('fail', 'event could not be unpublished');
+        return back()->with('success', 'event has been Unpublished');
     }
 
     /**
@@ -123,7 +150,7 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         /*   DELETE IMAGE ASSOCIATED WITH EVENT   */
-        $imgpath = storage_path("app/public/images/event_pic/" . $event->event_pic);
+        $imgpath = storage_path("app/public/event_pic/" . $event->event_pic);
         if (File::exists($imgpath)) {
             File::delete($imgpath);
         };  

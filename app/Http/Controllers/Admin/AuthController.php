@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest:admin')->except('logout');
+        //$this->middleware('guest:admin')->except('logout');
     }
     public function showLogin()
     {
@@ -26,7 +26,7 @@ class AuthController extends Controller
         ]);
 
         //login the Admin
-        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
             // The user is being remembered...
             //$request->session()->regenerate();
 

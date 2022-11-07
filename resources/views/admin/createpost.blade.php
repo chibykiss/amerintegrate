@@ -37,8 +37,16 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <button type="submit" class="form-control bg-primary text-white">POST</button>
-                </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <input type="submit" name="post_type" value="SAVE" class="form-control bg-primary text-white">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="submit" name="post_type" value="SAVE/PUBLISH" class="form-control bg-primary text-white">
+                        </div>
+                        
+                    </div>
+                </div>      
 
             </form>
         </div>

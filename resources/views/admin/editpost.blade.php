@@ -20,7 +20,7 @@
                 </div>
                 <div class="mb-3">
                    <label for="image" class="form-label">Old Post image</label> 
-                   <img class="img-thumbnail" src="{{asset('storage/images/post_pic/'.$post->postpic)}}"/>
+                   <img class="img-thumbnail" src="{{asset('storage/post_pic/'.$post->postpic)}}"/>
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">Post image</label>

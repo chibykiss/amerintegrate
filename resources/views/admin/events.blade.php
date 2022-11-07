@@ -13,6 +13,7 @@
                             <th>Details Excerpt</th>
                             <th>Event Date</th> 
                             <th>Event pic</th> 
+                            <th>Publish/Unpublish</th>
                             <th>Edit</th>
                             <th>Delete</th>
                             <th>Share Link</th>
@@ -24,6 +25,7 @@
                             <th>Details Excerpt</th>
                             <th>Event Date</th> 
                             <th>Event pic</th> 
+                            <th>Publish/Unpublish</th>
                             <th>Edit</th>
                             <th>Delete</th>
                             <th>Share Link</th>
@@ -35,7 +37,14 @@
                             <td>{{$event->title}}</td>
                             <td>{!! Str::limit($event->event_detail, 40) !!}</td>
                             <td>{{$event->event_date}}</td>
-                            <td><img src="{{asset("storage/images/event_pic/$event->event_pic")}}" width="150" height="50" alt="event pic" /></td>
+                            <td><img src="{{asset("storage/event_pic/$event->event_pic")}}" width="150" height="50" alt="event pic" /></td>
+                            <td>
+                                @if ($event->published_at === null)
+                                    <a href="{{route('event.show', ['event' => $event->id])}}" class="btn btn-primary text-white" href="">publish</a>
+                                @else
+                                     <a href="{{route('event.show', ['event' => $event->id])}}" class="btn btn-success text-white" href="">unpublish</a>
+                                @endif
+                            </td>
                             <td><a href="{{route('event.edit',['event' => $event->id])}}" class="btn text-success" title="edit Event"><i class="bi bi-pencil-fill"></i></a>
                             </td>
                             <td> <form onsubmit="if(confirm('Are you sure you want to delete post?') == true){return true}else{return false} " action="{{route('event.destroy', ['event' => $event->id])}}"  method="POST">
