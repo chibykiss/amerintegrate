@@ -4,7 +4,7 @@
         <h1 class="mt-4">All Posts</h1>
         @include('admin.incs.alert')
         <div class="card mb-4">
-            @if (count($posts) > 1)
+            @if (count($posts) > 0)
                 <div class="card-body">
                     <table id="datatablesSimple">
                         <thead>

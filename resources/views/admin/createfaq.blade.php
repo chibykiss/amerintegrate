@@ -4,44 +4,24 @@
         <div class="row">
             <div class="card col-lg-8 col-sm-12 mx-auto mt-5">
                 <div class="card-body">
-                    <h5 class="text-primary">Create an Event</h5>
+                    <h5 class="text-primary">Create an Faq</h5>
                     <hr />
-                    <form action="{{ route('event.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('faq.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label for="title" class="form-label">Event Title</label>
-                            <input type="text" name="title" value="{{ old('title') }}"
-                                class="form-control @error('title') is-invalid  @enderror" id="ETitle">
-                            @error('title')
+                            <label for="title" class="form-label">Question</label>
+                            <input type="text" name="question" value="{{ old('question') }}"
+                                class="form-control @error('question') is-invalid  @enderror" id="ETitle">
+                            @error('question')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="title" class="form-label">Event Date</label>
-                            <input type="datetime-local" name="edate" value="{{ old('edate') }}"
-                                class="form-control @error('edate') is-invalid  @enderror" id="date">
-                            @error('edate')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="title" class="form-label">Picture</label>
-                            <input type="file" name="epic" class="form-control @error('epic') is-invalid  @enderror"
-                                id="img">
-                            @error('epic')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="title" class="form-label">Event Details</label>
-                            <textarea name="edetail" id="editor" class="form-control">{{ old('edetail') }}</textarea>
-                            @error('edetail')
+                            <label for="title" class="form-label">Answer</label>
+                            <textarea name="answer" id="editor" class="form-control">{{ old('answer') }}</textarea>
+                            @error('answer')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

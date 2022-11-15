@@ -4,8 +4,10 @@ use App\Http\Controllers\Api\AddsubscriberController;
 use App\Http\Controllers\Api\BookConsultationController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\EventController;
+use App\Http\Controllers\Api\GetFaqController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\SendContactController;
+use App\Http\Controllers\Api\VideoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,3 +35,6 @@ Route::post('/comment/reply', [CommentController::class,'reply']);
 Route::post('/subscriber', AddsubscriberController::class);
 Route::post('/book', BookConsultationController::class);
 Route::post('/contact', SendContactController::class);
+Route::get('/faq', GetFaqController::class);
+Route::get('/video', [VideoController::class,'index']);
+Route::get('/video/{video}', [VideoController::class,'show']);

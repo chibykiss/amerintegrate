@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ConsultationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DonationController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\VideoController;
@@ -36,6 +37,7 @@ Route::group(["middleware" => ["auth:admin"]], function(){
      Route::get('/video/create', [VideoController::class,'create'])->name('video.create');
      Route::get('/video', [VideoController::class,'index'])->name('video.index');
      Route::post('/video', [VideoController::class,'store'])->name('video.store');
+     Route::get('/video/{video}/publish', [VideoController::class,'publish'])->name('video.publish');
      Route::delete('/video/{video}', [VideoController::class,'destroy'])->name('video.destroy');
      Route::get('/mail/subscribers', [NewsletterController::class, 'allSubscribers'])->name('email.subscribers');
      Route::get('/mail/{mail?}/create', [NewsletterController::class,'createSingle'])->name('email.create');
@@ -47,6 +49,7 @@ Route::group(["middleware" => ["auth:admin"]], function(){
         '/post' => PostController::class,
         '/event' => EventController::class,
         '/mail' => NewsletterController::class,
+        '/faq' => FaqController::class,
      ]);
 
      Route::get('/consultation', [ConsultationController::class, 'index'])->name('consultation.index');

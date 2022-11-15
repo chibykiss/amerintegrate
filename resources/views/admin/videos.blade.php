@@ -23,6 +23,7 @@
                                 <th>video Title</th>
                                 <th>video description</th>
                                 <th>the Video </th>
+                                <th>publish/unpublish</th>
                                 <th>Delete</th>
                                 <th>Share Link</th>
                             </tr>
@@ -34,27 +35,55 @@
                                     <td>{{ $video->title }}</td>
                                     <td>{{ $video->detail }}</td>
                                     <td>
+
                                         @if ($video->via === 'manual')
-                                             <video class="thumbnail" width="320" height="240" controls>
-                                            <source src="{{asset("storage/videos/$video->video_path")}}" type="video/mp4">
-                                            <source src="movie.ogg" type="video/ogg">
-                                            Your browser does not support the video tag.
-                                        </video>
+                                            <video class="thumbnail" width="320" height="240" controls>
+                                                <source src="{{ asset("storage/videos/$video->video_path") }}"
+                                                    type="video/mp4">
+                                                <source src="movie.ogg" type="video/ogg">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        @elseif ($video->via === 'youtube')
+                                            <iframe class="thumbnail" width="320" height="240`"
+                                                src="{{ $video->link_path }}" title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen></iframe>
+                                        @elseif ($video->via === 'vimeo')
+                                            <iframe class="thumbnail" width="320" height="240`"
+                                                src="{{ $video->link_path }}" title="Vimeo video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen></iframe>
                                         @else
-                                        <iframe class="thumbnail" width="320" height="240`" src="{{$video->link_path}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                            <p>Video Type not specified</p>
                                         @endif
-                                       
-                                    </td>
-                                    <td><form onsubmit="if(confirm('Are you sure you want to delete video?') == true){return true}else{return false} " action="{{"video/$video->id"}}"  method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                        <button class="btn text-danger" title="delete event"><i
-                                                class="bi bi-x-lg"></i></button>
-                                        </form>    
+
                                     </td>
                                     <td>
+                                        @if ($video->published_at === null)
+                                            <a href="{{ route('video.publish', ['video' => $video->id]) }}"
+                                                class="btn btn-primary text-white" href="">publish</a>
+                                        @else
+                                            <a href="{{ route('video.publish', ['video' => $video->id]) }}"
+                                                class="btn btn-success text-white" href="">unpublish</a>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <form
+                                            onsubmit="if(confirm('Are you sure you want to delete video?') == true){return true}else{return false} "
+                                            action="{{ "video/$video->id" }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn text-danger" title="delete event"><i
+                                                    class="bi bi-x-lg"></i></button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                         <button class="btn text-info" title="copy to share post"><i
+                                                class="bi bi-facebook"></i></button>
                                         <button class="btn text-info" title="copy to share post"><i
-                                                class="bi bi-collection-fill"></i></button>
+                                                class="bi bi-twitter"></i></button>
+                                        <button class="btn text-info" title="copy to share post"><i
+                                                class="bi bi-instagram"></i></button>
                                     </td>
                                 </tr>
                             @endforeach

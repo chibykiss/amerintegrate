@@ -11,8 +11,8 @@
                         <div class="card dash-container-inner">
                             <div class="card-body dash-container-body">
                                 <i class="bi bi-file-post text-primary h2"></i>
-                                <h4 class="text-primary">No of Posts</h4>
-                                <h5>100</h5>
+                                <h4 class="text-primary">Published Posts</h4>
+                                <h5>{{$posts}}</h5>
                             </div>
                         </div>
                     </div>
@@ -20,8 +20,8 @@
                         <div class="card dash-container-inner">
                             <div class="card-body dash-container-body">
                                 <i class="bi bi-view-list text-primary h2"></i>
-                                <h4 class="text-primary">Page Views</h4>
-                                <h5>200</h5>
+                                <h4 class="text-primary">Published Events</h4>
+                                <h5>{{$events}}</h5>
                             </div>
                         </div>
                     </div>
@@ -29,8 +29,26 @@
                         <div class="card dash-container-inner">
                             <div class="card-body dash-container-body">
                                 <i class="bi bi-question-circle text-primary h2"></i>
-                                <h4 class="text-primary">Support Request</h4>
-                                <h5>10</h5>
+                                <h4 class="text-primary">New consulatation</h4>
+                                <h5>{{$consultations}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dash-container">
+                        <div class="card dash-container-inner">
+                            <div class="card-body dash-container-body">
+                                <i class="bi bi-currency-dollar text-primary h2"></i>
+                                <h4 class="text-primary">Total Donation</h4>
+                                <h5>{{$consultations}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dash-container">
+                        <div class="card dash-container-inner">
+                            <div class="card-body dash-container-body">
+                                <i class="text-primary h2">₦</i>
+                                <h4 class="text-primary">Total Donation</h4>
+                                <h5>{{$consultations}}</h5>
                             </div>
                         </div>
                     </div>
