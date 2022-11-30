@@ -7,7 +7,10 @@ use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\GetFaqController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\SendContactController;
+use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\TeamController;
 use App\Http\Controllers\Api\VideoController;
+use App\Http\Controllers\Api\WebsiteSetupController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +29,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/event', [EventController::class, 'index']);
+Route::get('/event/past', [EventController::class, 'getPastEvents']);
+Route::get('/event/future', [EventController::class, 'getFutureEvents']);
 Route::get('/event/{event}', [EventController::class, 'show']);
 Route::get('/post/latest', [PostController::class, 'latest']);
 Route::get('/post', [PostController::class, 'index']);
@@ -38,3 +43,7 @@ Route::post('/contact', SendContactController::class);
 Route::get('/faq', GetFaqController::class);
 Route::get('/video', [VideoController::class,'index']);
 Route::get('/video/{video}', [VideoController::class,'show']);
+Route::get('/service/name', [ServiceController::class, 'getServiceName']);
+Route::get('/service', [ServiceController::class, 'index']);
+Route::get('/team', [TeamController::class, 'index']);
+Route::get('/web-address', [WebsiteSetupController::class, 'Address']);

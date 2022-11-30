@@ -1,5 +1,5 @@
 <?php
-namespace app\Traits;
+namespace App\Traits;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;

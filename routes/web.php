@@ -8,8 +8,12 @@ use App\Http\Controllers\Admin\DonationController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\NewsletterController;
+use App\Http\Controllers\Admin\PaystackWebhookController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\VideoController;
+use App\Http\Controllers\Admin\WebsiteSetupController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::get('/', [AuthController::class, 'showLogin'])->name('login')->middleware('guest:admin');
 Route::post('/login', [AuthController::class, 'Login'])->name('admin.login');
-        
+Route::post('/paystack/webhook', [PaystackWebhookController::class, 'handlechargesucess'])->middleware('verifywebhook');
 
 Route::group(["middleware" => ["auth:admin"]], function(){
     Route::get('/logout', [AuthController::class, 'Logout'])->name('admin.logout');
@@ -50,6 +54,9 @@ Route::group(["middleware" => ["auth:admin"]], function(){
         '/event' => EventController::class,
         '/mail' => NewsletterController::class,
         '/faq' => FaqController::class,
+        '/service' => ServiceController::class,
+        '/team' => TeamController::class,
+        '/setup' => WebsiteSetupController::class,
      ]);
 
      Route::get('/consultation', [ConsultationController::class, 'index'])->name('consultation.index');
