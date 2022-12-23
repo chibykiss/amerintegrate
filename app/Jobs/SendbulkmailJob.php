@@ -17,6 +17,7 @@ class SendbulkmailJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $detail;
+
     /**
      * Create a new job instance.
      *
@@ -38,6 +39,7 @@ class SendbulkmailJob implements ShouldQueue
         foreach($subscribers as $subscriber){
             $email = $subscriber->email;
             Mail::to($email)->send(new NewsletterMail($this->detail));
+            //sleep(5);
         }
     }
 }

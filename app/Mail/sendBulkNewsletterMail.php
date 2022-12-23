@@ -10,13 +10,10 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class NewsletterMail extends Mailable
+class sendBulkNewsletterMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    // public $subject;
-    // public $content;
-    // public $via;
     public $details;
 
     /**
@@ -24,12 +21,9 @@ class NewsletterMail extends Mailable
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($detail)
     {
-        // $this->subject = $sub;
-        // $this->content = $content;
-        // $this->via = $via;
-        $this->details = $details;
+        $this->details = $detail;
     }
 
     /**

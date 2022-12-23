@@ -54,7 +54,7 @@ class ServiceController extends Controller
                 'picture' => $filepath,
                 'content' => $request->content,
             ]);
-            return back()->with('success', 'service created and saved');
+            return redirect('service')->with('success', 'service created and saved');
         } elseif ($request->post_type === 'SAVE/PUBLISH') {
             Services::create([
                 'admin_id' => auth()->user()->id,

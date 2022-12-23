@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs\SendbulkmailJob;
 use App\Jobs\SendemailJob;
 use App\Mail\NewsletterMail;
+use App\Mail\sendBulkNewsletterMail;
 use App\Models\Newsletter;
 use App\Models\Subscriber;
 use Illuminate\Http\Request;
@@ -20,12 +21,12 @@ class NewsletterController extends Controller
      */
     public function index()
     {
-        $newsletters = Newsletter::with('admin')->get();
+        $newsletters = Newsletter::with('admin')->orderBy('created_at','DESC')->get();
         return view('admin.emails', ['newsletters' => $newsletters]);
     }
     
     public function allSubscribers(){
-        $subscribers = Subscriber::all();
+        $subscribers = Subscriber::orderBy('created_at','DESC')->get();
         return view('admin.createnewsletter', ['subscribers' => $subscribers]);
 
     }
@@ -107,6 +108,7 @@ class NewsletterController extends Controller
     public function sendBulk(Request $request)
     {
         //return $request->all();
+        
         $request->validate([
             'subject' => 'required|string',
             'via' => 'required|string',
@@ -119,11 +121,17 @@ class NewsletterController extends Controller
             'emailbody' => $request->emailbody,
         ];
 
-        dispatch(new SendbulkmailJob($data));
+        //dispatch(new SendbulkmailJob($data));
+        $subscribers = Subscriber::all();
+        foreach ($subscribers as $subscriber) {
+            $email = $subscriber->email;
+            Mail::to($email)->send(new sendBulkNewsletterMail($data));
+            //sleep(5);
+        }
         Newsletter::create([
             'admin_id' => auth()->user()->id,
             'subject' => $request->subject,
-            'body' => $request->body,
+            'body' => $request->emailbody,
             'via' => 'all_subscribers',
             'send_status' => 'sending',
         ]);
@@ -191,7 +199,8 @@ class NewsletterController extends Controller
             'via' => $request->via,
             'emailbody' => $request->emailbody,
         ];
-        dispatch(new SendemailJob($data));
+        // dispatch(new SendemailJob($data));
+        Mail::to($request->reciever)->send(new NewsletterMail($data));
         Newsletter::create([
             'admin_id' => auth()->user()->id,
             'subject' => $request->subject,

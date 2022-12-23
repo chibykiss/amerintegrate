@@ -16,7 +16,7 @@ class DonationController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $donations = Donatation::all();
+        $donations = Donatation::orderBy('created_at','DESC')->get();
         return view('admin.donations', ['donations' => $donations]);
     }
 }

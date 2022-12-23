@@ -39,7 +39,7 @@
                             <div class="card-body dash-container-body">
                                 <i class="bi bi-currency-dollar text-primary h2"></i>
                                 <h4 class="text-primary">Total Donation</h4>
-                                <h5>{{$consultations}}</h5>
+                                <h5>{{$total_dollar}}</h5>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                             <div class="card-body dash-container-body">
                                 <i class="text-primary h2">₦</i>
                                 <h4 class="text-primary">Total Donation</h4>
-                                <h5>{{$consultations}}</h5>
+                                <h5>{{$total_naira}}</h5>
                             </div>
                         </div>
                     </div>

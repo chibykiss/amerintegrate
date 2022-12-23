@@ -15,36 +15,31 @@
                             <th>Amount(currency)</th> 
                             <th>GAteway</th>
                             <th>Status</th>
-                            <th>Delete</th>
+                            <th>Date</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>S/N</th>
+                            <th>trnxid</th>
                             <th>Name</th>
                             <th>Email</th> 
                             <th>Amount</th> 
                             <th>GAteway</th>
                             <th>Status</th>
-                            <th>Delete</th>
+                            <th>Date</th>
                         </tr>
                     </tfoot>
                     <tbody>
                         @foreach ($donations as $sn => $donate)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{$donate->signature}}</td>
+                            <td>{{$donate->name}}</td>
+                            <td>{{$donate->email}}</td>
+                            <td>{{$donate->currency.' '.$donate->amount}}</td>
+                            <td>{{$donate->gateway}}</td>
+                            <td>{{$donate->status}}</td>
                             <td>
-                              <form onsubmit="if(confirm('Are you sure you want to delete post?') == true){return true}else{return false} " action="{{route('event.destroy', ['event' => $event->id])}}"  method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                        <button class="btn text-danger" title="delete event"><i
-                                                class="bi bi-x-lg"></i></button>
-                                        </form>   
+                                {{$donate->created_at->diffForHumans()}}
                             </td>
                         </tr>
                             
