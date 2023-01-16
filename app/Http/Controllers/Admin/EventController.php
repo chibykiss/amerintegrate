@@ -45,6 +45,7 @@ class EventController extends Controller
         $request->validate([
             'title' => ['required', 'string'],
             'edate' => ['required', 'string'],
+          	'eventtype' => ['required', 'string'],
             'epic' => ['required', 'image', 'mimes:png,jpg,jpeg,gif,svg', 'max:2048'],
             'edetail' => ['required', 'string'],
             'post_type' => ['required', 'string'],
@@ -55,6 +56,7 @@ class EventController extends Controller
                 'admin_id' => auth()->user()->id,
                 'title' => $request->title,
                 'event_date' => $request->edate,
+              	'event_type' => $request->eventtype,
                 'event_pic' => $filepath,
                 'event_detail' => $request->edetail,
             ]);
@@ -64,6 +66,7 @@ class EventController extends Controller
                 'admin_id' => auth()->user()->id,
                 'title' => $request->title,
                 'event_date' => $request->edate,
+              	'event_type' => $request->eventtype,
                 'event_pic' => $filepath,
                 'event_detail' => $request->edetail,
                 'published_at' => Carbon::now(),
@@ -118,6 +121,7 @@ class EventController extends Controller
         $request->validate([
             'title' => 'required|string',
             'edate' => 'required|string',
+          	'eventtype' => 'required|string',
             'epic' => 'image|mimes:png,jpg,jpeg,gif,svg|max:2048',
             'edetail' => 'required|string',
         ]);
@@ -134,6 +138,7 @@ class EventController extends Controller
             'admin_id' => auth()->user()->id,
             'title' => $request->title,
             'event_date' => $request->edate,
+          	'event_type' => $request->eventtype,
             'event_pic' => $filepath,
             'event_detail' => $request->edetail,
         ]);

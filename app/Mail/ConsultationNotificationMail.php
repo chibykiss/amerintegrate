@@ -10,21 +10,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class sendBulkNewsletterMail extends Mailable implements ShouldQueue
+class ConsultationNotificationMail extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $details;
-  	public $tries = 3;
-
+    public $data;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($detail)
+    public function __construct($body)
     {
-        $this->details = $detail;
+        $this->data = $body;
     }
 
     /**
@@ -35,8 +32,8 @@ class sendBulkNewsletterMail extends Mailable implements ShouldQueue
     public function envelope()
     {
         return new Envelope(
-            from: new Address($this->details['via'], 'AmerIntegrate'),
-            subject: $this->details['subject'],
+            from: new Address('no-reply@amerintegrate.net', 'Amerintegrate'),
+            subject: 'Consultation Notification Mail',
         );
     }
 
@@ -48,7 +45,7 @@ class sendBulkNewsletterMail extends Mailable implements ShouldQueue
     public function content()
     {
         return new Content(
-            view: 'emails.newsletter',
+            view: 'emails.consultationnotification',
         );
     }
 

@@ -29,12 +29,13 @@ class EventController extends Controller
             'data' => $evnt,
         ],200);
     }
-
-    public function getPastEvents()
+  
+   public function getPastEvents()
     {
         $pastEvent = Event::where([
             ['event_date', '<', Carbon::now()],
             ['published_at', '!=', null],
+          	['event_type', 'amerintegrate'],
             ])->get();
         return response()->json([
             'status' => 'success',
@@ -47,10 +48,20 @@ class EventController extends Controller
         $futureEvent = Event::where([
             ['event_date', '>', Carbon::now()],
             ['published_at', '!=', null],
+          	['event_type', 'amerintegrate'],
         ])->get();
         return response()->json([
             'status' => 'success',
             'data' => $futureEvent,
+        ], 200);
+    }
+  
+    public function getGlobalEvents()
+    {
+        $globalEvent = Event::where('event_type','global')->get();
+        return response()->json([
+            'status' => 'success',
+            'data' => $globalEvent,
         ], 200);
     }
 }

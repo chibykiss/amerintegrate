@@ -25,6 +25,19 @@
                         </span>
                     @enderror
                 </div>
+                  <div class="mb-3">
+                            <label for="title" class="form-label">Event Type</label>
+                            <select name="eventtype" class="form-select @error('via') is-invalid  @enderror"
+                                aria-label="Default select example">
+                                <option value="amerintegrate">Amerintegrate Event</option>
+                                <option value="global">Global Event</option>
+                            </select>
+                            @error('eventtype')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                 <div class="mb-3">
                    <label for="image" class="form-label">Old Event image</label> 
                    <img class="img-thumbnail" src="{{asset('storage/event_pic/'.$event->event_pic)}}"/>

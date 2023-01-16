@@ -37,7 +37,7 @@
                         <tr>
                             <td>{{$service->name}}</td>
                             <td>{!! Str::limit($service->content, 40) !!}</td>
-                            <td><img src="{{asset("storage/service_pic/$service->picture")}}" width="150" height="50" alt="event pic" /></td>
+                            <td><img src="{{asset("storage/service_pic/$service->picture")}}" width="150" height="50" alt="service pic" /></td>
                             <td>
                                 @if ($service->published_at === null)
                                     <a href="{{route('service.show', ['service' => $service->id])}}" class="btn btn-primary text-white" href="">publish</a>

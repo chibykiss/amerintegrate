@@ -8,12 +8,13 @@ use App\Http\Controllers\Admin\DonationController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\NewsletterController;
-use App\Http\Controllers\Admin\PaystackWebhookController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\TeamController;
+use App\Http\Controllers\Admin\PaystackWebhookController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Admin\WebsiteSetupController;
+use App\Http\Controllers\Api\BookConsultationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,10 +31,26 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+Route::get('/bar', function(){
+    Artisan::call('cache:clear');
+    return 'success';
+});
+  
+//Route::get('/foo', function(){
+    //$targetFolder = $_SERVER['DOCUMENT_ROOT'].'/project_foder/laravel/storage/app/public';
+   //	$targetFolder = '/home/amerinte/domains/amerintegrate.net/amerfiles/storage/app/public';
+  	//return $targetFile;
+    //$linkFolder =  '/home/amerinte/domains/amerintegrate.net/public_html/cms/storage';
+   	//$linkFolder = $_SERVER['DOCUMENT_ROOT'].'/project_foder/public/storage';
+    //symlink($targetFolder, $linkFolder);
+    //return 'success';
+//});
+
+
 Route::get('/', [AuthController::class, 'showLogin'])->name('login')->middleware('guest:admin');
 Route::post('/login', [AuthController::class, 'Login'])->name('admin.login');
-Route::post('/paystack/webhook', [PaystackWebhookController::class, 'handlechargesucess'])->middleware('verifywebhook');
-
+Route::post('/paystack/webhook', [PaystackWebhookController::class,'handle'])->middleware('verifywebhook');
+Route::get('/foobar', BookConsultationController::class);
 Route::group(["middleware" => ["auth:admin"]], function(){
     Route::get('/logout', [AuthController::class, 'Logout'])->name('admin.logout');
      Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
@@ -54,7 +71,7 @@ Route::group(["middleware" => ["auth:admin"]], function(){
         '/event' => EventController::class,
         '/mail' => NewsletterController::class,
         '/faq' => FaqController::class,
-        '/service' => ServiceController::class,
+       '/service' => ServiceController::class,
         '/team' => TeamController::class,
         '/setup' => WebsiteSetupController::class,
      ]);

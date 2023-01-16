@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ConsultationNotificationMail;
 use App\Models\Consultation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class BookConsultationController extends Controller
 {
@@ -23,12 +25,14 @@ class BookConsultationController extends Controller
             'date' => 'string|required',
             'country' => 'required|string',
             'state' => 'required|string',
-            'service_type' => 'string|required|'
+            'service_type' => 'string|required|',
+          	'consultation_type' => 'string|required',
         ]);
 
         $check = Consultation::where([
             ['email', $request->email],
             ['service_type', $request->service_type],
+          	['consultation_type',$request->consultation_type],
         ]);
         if($check->exists()){
             return response()->json([
@@ -46,6 +50,7 @@ class BookConsultationController extends Controller
             'country' => $request->country,
             'state' => $request->state,
             'service_type' => $request->service_type,
+          	'consultation_type' => $request->consultation_type,
            
         ]);
         if (!$create) {
@@ -56,11 +61,28 @@ class BookConsultationController extends Controller
                 ]
             ]);
         }
-        return response()->json([
-            'status' => 'success',
-            'data' => [
-                'message' => 'booking request submitted',
-            ]
-        ]);
+    
+        //return new ConsultationNotificationMail($request->all());
+        //return $request->all();
+        $data = $create->toArray();
+        //return $data;
+        try {
+            Mail::to('info@amerintegrate.net')->send(new ConsultationNotificationMail($data));
+            return response()->json([
+                'status' => 'success',
+                'data' => [
+                    'email' => 'sent',
+                    'message' => 'booking request submitted',
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'success',
+                'data' => [
+                    'email' => $e->getMessage(),
+                    'message' => 'booking request submitted',
+                ]
+                ]);
+        }
     }
 }

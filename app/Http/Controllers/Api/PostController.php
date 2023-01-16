@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::withCount('comments')->where('published_at', '!=', null)->paginate(3);
+        $posts = Post::withCount('comments')->where('published_at', '!=', null)->get();
         return response()->json([
             'status' => 'success',
             'data' => $posts,

@@ -13,7 +13,7 @@
                             <th>Name</th>
                             <th>Email</th> 
                             <th>Amount(currency)</th> 
-                            <th>GAteway</th>
+                            <th>Gateway</th>
                             <th>Status</th>
                             <th>Date</th>
                         </tr>
@@ -23,8 +23,8 @@
                             <th>trnxid</th>
                             <th>Name</th>
                             <th>Email</th> 
-                            <th>Amount</th> 
-                            <th>GAteway</th>
+                          	<th>Amount(currency)</th> 
+                            <th>Gateway</th>
                             <th>Status</th>
                             <th>Date</th>
                         </tr>

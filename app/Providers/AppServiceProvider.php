@@ -6,8 +6,8 @@ use App\Models\Newsletter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
         Model::preventAccessingMissingAttributes();
         //to disable model fillable property
         Model::unguard();
-        Schema::defaultStringLength(191);
+		Schema::defaultStringLength(191);
         
         Queue::after(function(JobProcessed $event){
             Log::info($event->job);

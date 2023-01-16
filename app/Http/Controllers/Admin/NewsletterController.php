@@ -21,12 +21,12 @@ class NewsletterController extends Controller
      */
     public function index()
     {
-        $newsletters = Newsletter::with('admin')->orderBy('created_at','DESC')->get();
+        $newsletters = Newsletter::with('admin')->get();
         return view('admin.emails', ['newsletters' => $newsletters]);
     }
     
     public function allSubscribers(){
-        $subscribers = Subscriber::orderBy('created_at','DESC')->get();
+        $subscribers = Subscriber::all();
         return view('admin.createnewsletter', ['subscribers' => $subscribers]);
 
     }
@@ -108,7 +108,6 @@ class NewsletterController extends Controller
     public function sendBulk(Request $request)
     {
         //return $request->all();
-        
         $request->validate([
             'subject' => 'required|string',
             'via' => 'required|string',
@@ -199,8 +198,8 @@ class NewsletterController extends Controller
             'via' => $request->via,
             'emailbody' => $request->emailbody,
         ];
-        // dispatch(new SendemailJob($data));
-        Mail::to($request->reciever)->send(new NewsletterMail($data));
+      	Mail::to($request->reciever)->send(new NewsletterMail($data));
+        //dispatch(new SendemailJob($data));
         Newsletter::create([
             'admin_id' => auth()->user()->id,
             'subject' => $request->subject,

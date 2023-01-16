@@ -9,8 +9,8 @@
 <body>
     <div>
         {!!$details['emailbody']!!}
-        {{-- <p>{{$details['subject']}}</p>
-        <p>{{$details['via']}}</p> --}}
+        <p>{{$details['subject']}}</p>
+        <p>{{$details['via']}}</p>
     </div>
 </body>
 </html>

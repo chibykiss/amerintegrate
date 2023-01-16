@@ -57,7 +57,14 @@ class ConsultationController extends Controller
         ];
 
         /** Send Mail */
-        Mail::to($request->reciever)->send(new sendConsultationEmail($data));
-        return redirect('consultation')->with('success', 'Email sent');
+        try {
+            Mail::to($request->reciever)->send(new sendConsultationEmail($data));
+            return redirect('consultation')->with('success', 'Email sent');
+        } catch (\Exception $e) {
+           return $e->getMessage();
+            return redirect('consultation')->with('fail', $e->getMessage());
+        }
+      
+    
     }
 }

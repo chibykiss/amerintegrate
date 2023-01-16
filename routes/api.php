@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/event', [EventController::class, 'index']);
 Route::get('/event/past', [EventController::class, 'getPastEvents']);
+Route::get('/event/global', [EventController::class, 'getGlobalEvents']);
 Route::get('/event/future', [EventController::class, 'getFutureEvents']);
 Route::get('/event/{event}', [EventController::class, 'show']);
 Route::get('/post/latest', [PostController::class, 'latest']);
@@ -49,5 +50,6 @@ Route::get('/service/name', [ServiceController::class, 'getServiceName']);
 Route::get('/service', [ServiceController::class, 'index']);
 Route::get('/team', [TeamController::class, 'index']);
 Route::get('/web-address', [WebsiteSetupController::class, 'Address']);
+Route::get('/vis_location', [WebsiteSetupController::class, 'visitor_location']);
 Route::get('/paystack-verify', PaystackConfirmPaymentController::class);
 Route::post('/paypal-store', PaypalStorePaymentDetailsController::class);
